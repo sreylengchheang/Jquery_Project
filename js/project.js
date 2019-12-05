@@ -10,7 +10,7 @@ $(function () {
                 nomPom += `
                 <div class="card">
                 <div class="card-header">${element.name}</div>
-                <div class="card-body">${element.iconUrl}</div>
+                <div class="card-body"><img src="${element.iconUrl}"></div>
                 </div>
                 `
                 $('#choose_my_option').on('change', function () {
