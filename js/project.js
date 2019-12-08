@@ -1,26 +1,55 @@
-$(function () {
-    var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
-    $.ajax({
-        url: url,
-        dataType: 'json',
-        success: function (data) {
-            error: () => console.error("Cannot request data");
-            data.recipes.forEach(element => {
-                var nomPom = "";
-                nomPom += `
-                <div class="card">
-                <div class="card-header">${element.name}</div>
-                <div class="card-body"><img src="${element.iconUrl}"></div>
-                </div>
-                `
-                $('#choose_my_option').on('change', function () {
-                    var recipe = $('#choose_my_option').val();
-              
-                })
-                $('#result').append(nomPom);
-            });
 
+var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+$(document).ready(function () {
+    API(url);
+    $("#sum").on('click', function () {
+        var number = parseInt($("#input").val());
+        sum(number);
+    })
+    $("#minus").on('click', function () {
+        var number = parseInt($("#input").val());
+        minus(number);
+    })
+});
+var API = (api) => {
+    $.ajax({
+        dataType: 'json',
+        url: url,
+        success: (data) => getRecipse(data),
+        error: () => console.error("Cannot request data"),
+    })
+}
+function getRecipse(datas) {
+    datas.recipes.forEach(element => {
+        getElents(element);
+    });
+}
+var getElents = (element) => {
+    getIdFromSelection(element);
+}
+function getIdFromSelection(element) {
+    $("#choose_my_option").on('change', function () {
+        selection = $("#choose_my_option").val();
+        if (element.id == selection) {
+            getElementById(element);
+            element.ingredients.forEach(item => {
+                ingradiants(item);
+            });
         }
     })
-    // var chooseRecipe = (myRecipe)
-});
+}
+function getElementById(recipse) {
+    const { name, iconUrl, nbGuests, instructions } = recipse;
+    console.log(name);
+    //do
+}
+function ingradiants(item) {
+   console.log(item.name);
+   //do
+}
+
+
+
+
+
+
