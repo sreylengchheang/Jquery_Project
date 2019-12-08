@@ -2,14 +2,6 @@
 var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
 $(document).ready(function () {
     API(url);
-    $("#sum").on('click', function () {
-        var number = parseInt($("#input").val());
-        sum(number);
-    })
-    $("#minus").on('click', function () {
-        var number = parseInt($("#input").val());
-        minus(number);
-    })
 });
 var API = (api) => {
     $.ajax({
