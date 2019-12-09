@@ -2,6 +2,15 @@
 var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
 $(document).ready(function () {
     API(url);
+    $('#minus').on('click',function(){
+        var min = $('#numbers').val();
+        descreasNumber(min);
+       });
+
+       $('#add').on('click',function(){
+        var max = $('#numbers');
+        increasNumber(max);
+    });
 });
 //request data from api using arrow fucntion
 var API = (api) => {
@@ -30,8 +39,8 @@ function getValueSelection(element) {
                 letter += `
                     <h3 class="text-center">Ingrediants</h3>
                 `
-                ingrediants(item);
                 $('#text').html(letter);
+                ingrediants(item);
             });
         }
     })
@@ -40,7 +49,6 @@ function getValueSelection(element) {
 function getValueApi(recipse) {
     //distructuring
     const { name, iconUrl, nbGuests, instructions } = recipse;
-    console.log(name);
     var recipes = "";
     recipes += `
         <div class="card shadow-lg">
@@ -62,7 +70,7 @@ function ingrediants(item) {
             <td>${unit[0]}</td>
             <td><img src="${iconUrl}" class="img-fluid" width="100"></td>
         </tr>
-    `
+    `;
     $('#ingredient').append(table);
 }
 //for increasment
@@ -74,38 +82,40 @@ function increasAndDescreasment(increas) {
                 <button class="btn btn-danger" type="butdton" id="minus">&minus;</button>
             </div>
             
-                <input type="text" class="form-control" value ="0" id="value">
+                <input type="text" class="form-control" value ="0" id="numbers">
+                
 
             <div class="input-group-append">
                 <button class="btn btn-success" type="butdton" id="add">&plus;</button>
             </div>
          </div>
-                `
-
+         <h3 class="text-center">Numbers of people</h3>
+            `;
     $('#increasment').html(input);
-   
+    var text = "";
+    text +=`
+    <h3 class="text-center">Instruction</h3>
+    `;
+    $('#textes').html(text);
 }
 
-// function minus(number) {
-//    $('#minus').on('click',function(){
-//     var min = $('#minus').val();
-//     descreas(min);
-//    });
-// }
-// function descreas(descreasment){
-//     var numbers = parseInt(descreasment)-1;
-//         return numbers;
-// }
-// function add(number) {
-//    $('#add').on('click',function(){
-//     var max = $('#minus').val();
-//     increas(max);
-//    });
-// }
-// function increas(increasment){
-//     var addNumber = parseInt(descreasment)+1;
-//         return addNumber;
-// }
+//descreasment
+
+function descreasNumber(minimux) {
+    var minNumber = parseInt(minimux) -1;
+    if(minNumber >= 0){
+        $('#numbers').val(minNumber);
+    }
+}
+//increasment
+function increasNumber(maximux) {
+    var maxNumber = parseInt(maximux) + 1;
+    if(maxNumber <=15){
+        $('#numbers').val(maxNumber);
+    }
+}
+
+
 
 
 
