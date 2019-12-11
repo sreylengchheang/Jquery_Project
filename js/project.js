@@ -8,6 +8,7 @@ $(function () {
         var recipeId = $('#recipe').val();
         eachRecipe(recipeId);
     });
+    // condition()
 });
 //get data from api
 function getApi() {
@@ -41,6 +42,7 @@ function eachRecipe(id) {
             //showIngredient
             showIngredient(item.ingredients);
             //showStep().....
+            showStep(item.instructions);
         }
     })
 }
@@ -48,7 +50,7 @@ function eachRecipe(id) {
 function showRecipe(name, img) {
     var result = "";
     result += ` 
-      <h3>${name} <img src ="${img}" class="img-fluid rounded-circle" width="150"></h3>
+      <h4>${name} <img src ="${img}" class="img-fluid rounded-circle" width="150"></h4>
     `
     $('#result').html(result);
 }
@@ -61,12 +63,43 @@ function showIngredient(ing) {
             <td>${ele.name}</td>
             <td>${ele.quantity}</td>
             <td>${ele.unit[0]}</td>
-            <td><img src="${ele.iconUrl}" class="img-fluid" width="150"></td>
+            <td><img src="${ele.iconUrl}" class="img-fluid" width="100"></td>
         </tr>
       `
     });
     $('#ingredient').html(ingre);
 }
+//get step from api 
+function showStep(step) {
+    var data = step.split('<step>');
+    var instruction ="";
+    var i = 1;
+    while (i<data.length) {
+        instruction  += `
+                <h4 class="text-primary">Step ${i} </h4> 
+                <p>${data[i]}</p>
+        `;
+
+        i++;
+    }
+  
+    $('#instruction').html(instruction);
+}
+// function condition() {
+//     var input ="";
+//     input +=`
+//         <div class="input-group mb-3">
+//             <div class="input-group-prepend">
+//                 <button class="btn btn-primary" type="button" id="minus">&minus;</button>
+//             </div>
+//                 <input type="number" class="form-control text-center" value="0" disabled id="member" max="15" min="0">
+//             <div class="input-group-append">
+//                 <button class="btn btn-success" type="button" id="add">&#x2b;</button>
+//             </div>
+//         </div>
+//     `
+//     $('#increasment').append(input);
+// }
 
 
 
