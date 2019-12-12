@@ -6,6 +6,7 @@ $(function () {
     getApi();
     $('#recipe').on('change', function () {
         var recipeId = $('#recipe').val();
+        condition()
         eachRecipe(recipeId);
     });
     // condition()
@@ -30,6 +31,7 @@ function chooseRecipe(recipe) {
             <option value="${element.id}">${element.name}</option>
         `
     });
+   
     $('#recipe').append(option);
 }
 // select each recipe
@@ -85,21 +87,21 @@ function showStep(step) {
   
     $('#instruction').html(instruction);
 }
-// function condition() {
-//     var input ="";
-//     input +=`
-//         <div class="input-group mb-3">
-//             <div class="input-group-prepend">
-//                 <button class="btn btn-primary" type="button" id="minus">&minus;</button>
-//             </div>
-//                 <input type="number" class="form-control text-center" value="0" disabled id="member" max="15" min="0">
-//             <div class="input-group-append">
-//                 <button class="btn btn-success" type="button" id="add">&#x2b;</button>
-//             </div>
-//         </div>
-//     `
-//     $('#increasment').append(input);
-// }
+function condition() {
+    var input ="";
+    input +=`
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button" id="minus">&minus;</button>
+            </div>
+                <input type="number" class="form-control text-center" value="0" disabled id="member" max="15" min="0">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button" id="add">&#x2b;</button>
+            </div>
+        </div>
+    `
+    $('#incraement').html(input);
+}
 
 
 
