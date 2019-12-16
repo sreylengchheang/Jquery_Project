@@ -6,10 +6,22 @@ $(function () {
     getApi();
     $('#recipe').on('change', function () {
         var recipeId = $('#recipe').val();
-        condition()
+        // formInput()
         eachRecipe(recipeId);
+        $('#minus').on('chick',function(){
+            var minimux = $('#number').val();
+            console.log(minimux);
+            decreasment(minimux);
+          
+        });
+        $('#add').on('click',function(){
+            var maximux = $('#number').val();
+            console.log(maximux);
+            increasment(maximux);
+        })
     });
-    // condition()
+   
+
 });
 //get data from api
 function getApi() {
@@ -26,10 +38,13 @@ var allData = [];
 function chooseRecipe(recipe) {
     allData = recipe;
     var option = "";
+    
     recipe.forEach(element => {
         option += `
             <option value="${element.id}">${element.name}</option>
+        
         `
+       
     });
    
     $('#recipe').append(option);
@@ -38,22 +53,36 @@ function chooseRecipe(recipe) {
 function eachRecipe(id) {
     allData.forEach(item => {
         if (item.id == id) {
-            console.log(item);
+         
             //showRecipe();
-            showRecipe(item.name, item.iconUrl);
+            showRecipe(item.name, item.iconUrl,item.nbGuests);
             //showIngredient
             showIngredient(item.ingredients);
             //showStep().....
             showStep(item.instructions);
+            //shownbGuests()
+            // shwoNbGuests(item.nbGuests);
         }
     })
 }
 // show name and image
-function showRecipe(name, img) {
+function showRecipe(name, img,nbGuests) {
     var result = "";
+
     result += ` 
       <h4>${name} <img src ="${img}" class="img-fluid rounded-circle" width="150"></h4>
+      <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-primary" type="button" id="minus">&minus;</button>
+            </div>
+                <input type="number" class="form-control text-center" value="${nbGuests}" disabled id="number" max="15" min="0">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button" id="add">&#x2b;</button>
+            </div>
+        </div>
+      
     `
+   
     $('#result').html(result);
 }
 //get ingredient
@@ -74,33 +103,33 @@ function showIngredient(ing) {
 //get step from api 
 function showStep(step) {
     var data = step.split('<step>');
-    var instruction ="";
+    var instruction = "";
     var i = 1;
-    while (i<data.length) {
-        instruction  += `
+    while (i < data.length) {
+        instruction += `
                 <h4 class="text-primary">Step ${i} </h4> 
                 <p>${data[i]}</p>
         `;
 
         i++;
     }
-  
+
     $('#instruction').html(instruction);
 }
-function condition() {
-    var input ="";
-    input +=`
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <button class="btn btn-primary" type="button" id="minus">&minus;</button>
-            </div>
-                <input type="number" class="form-control text-center" value="0" disabled id="member" max="15" min="0">
-            <div class="input-group-append">
-                <button class="btn btn-success" type="button" id="add">&#x2b;</button>
-            </div>
-        </div>
-    `
-    $('#incraement').html(input);
+
+//for decreasment number
+function decreasment(mini){
+    var numbers = parseInt(mini) -1;
+    if(numbers >=0){
+        $('#number').val(numbers);
+    }
+}
+//for increasment number
+function increasment(max){
+    var num = parseInt(max) +1;
+    if(num <=15){
+        $('#number').val(num);
+    }
 }
 
 
