@@ -78,12 +78,13 @@ function showRecipe(name, img) {
 
     result += ` 
       <h4>${name}</h4>
-      <img src ="${img}" class="img-fluid" width="200" >
+      <img src ="${img}" class="img-fluid shadow-lg img-thumbnail" width="350" >
       
     `
 
     $('#result').html(result);
 }
+$('#hide').hide();
 
 //get ingredient
 function showIngredient(ing) {
@@ -104,6 +105,7 @@ function showIngredient(ing) {
     });
     $('#text').html(text);
     $('#ingredient').html(ingre);
+    $('#hide').show();
 }
 
 //get step from api 
@@ -160,8 +162,9 @@ function nbGuest(nbGuests) {
     <div class="input-group-append">
     <button class="btn btn-success" type="button" id="add">&#x2b;</button>
     </div>
-    <h5>Number of people</h5>
+   
     </div>
+    <h5>Number of people</h5>
     `
     $('#incraement').html(personOne);
 }
