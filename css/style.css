@@ -1,0 +1,25 @@
+body{
+    background-color:lavender;
+}
+#instruction{
+    margin-left: 50px;
+}
+#texts,#text{
+    margin-top: 20px;
+}
+#ingredient{
+    margin-left: 25px;
+}
+h1{
+    margin-top: 20px;
+    margin-left: 100px;
+    font-family: 'EB Garamond', serif;
+}
+#style{
+    margin-top: -40px;
+    margin-left: 300px;
+}
+#pupular{
+    margin-top: -40px;
+    margin-left: 400px;
+}

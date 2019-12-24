@@ -1,29 +1,28 @@
+// get url 
 function getUrl() {
     var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
 $(function () {
+    //display data in application
     getApi();
     $('#recipe').on('change', function () {
         var recipeId = $('#recipe').val();
-        // formInput()
         eachRecipe(recipeId);
+
+        //increas and decrease number
         $('#minus').on('click', function () {
             var minimux = $('#number').val();
-
             decreasment(minimux);
 
         });
         $('#add').on('click', function () {
             var maximux = $('#number').val();
-
             increasment(maximux);
         })
     });
-
-
 });
-//get data from api
+//request data from json file
 function getApi() {
     $.ajax({
         dataType: 'json',
@@ -32,21 +31,16 @@ function getApi() {
         error: () => console.log("Cannot request data"),
     });
 }
-
 var allData = [];
-// display data in select form
+//this function select the recipe name and change recipe information
 function chooseRecipe(recipe) {
     allData = recipe;
     var option = "";
-
     recipe.forEach(element => {
         option += `
             <option value="${element.id}">${element.name}</option>
-        
-        `
-
+        `;
     });
-
     $('#recipe').append(option);
 }
 //this variable array for get old nbGuest
@@ -56,7 +50,6 @@ var oldNbGeusts = 0;
 function eachRecipe(id) {
     allData.forEach(item => {
         if (item.id == id) {
-
             //showRecipe();
             showRecipe(item.name, item.iconUrl);
             nbGuest(item.nbGuests);
@@ -68,31 +61,29 @@ function eachRecipe(id) {
             dataQuanlity = item;
             //get oldNbGeusts
             oldNbGeusts = item.nbGuests;
-
         }
     })
 }
 // show name and image
 function showRecipe(name, img) {
     var result = "";
-
     result += ` 
-      <h4>${name}</h4>
-      <img src ="${img}" class="img-fluid shadow-lg img-thumbnail" width="350" >
-      
-    `
-
+    <div class="card shadow-lg">
+        <div class="card-header"><h4>${name}</h4></div>
+        <div class="card-body"><img src ="${img}" class="img-fluid " width="350" ></div>
+    </div>
+    `;
     $('#result').html(result);
 }
 $('#hide').hide();
 
-//get ingredient
+//get ingredient and display unit with signle letter
 function showIngredient(ing) {
     var ingre = "";
     var text = "";
     text += `
     <h3 class="text-center">Ingredients</h3><br>
-    `
+    `;
     ing.forEach(ele => {
         ingre += `
         <tr>
@@ -101,35 +92,31 @@ function showIngredient(ing) {
             <td>${ele.unit[0]}</td>
             <td><img src="${ele.iconUrl}" class="img-fluid" width="100"></td>
         </tr>
-      `
+      `;
     });
     $('#text').html(text);
     $('#ingredient').html(ingre);
     $('#hide').show();
 }
-
-//get step from api 
+//display instructions to step
 function showStep(step) {
     var letter = "";
     letter += `
         <h3 class="text-center">Instruction</h3><br>
-    `
+    `;
     var data = step.split('<step>');
     var instruction = "";
     var i = 1;
     while (i < data.length) {
         instruction += `
-                <h4 class="text-primary">Step ${i} </h4> 
-                <p>${data[i]}</p>
+            <h4 class="text-primary">Step ${i} </h4> 
+             <p>${data[i]}</p>
         `;
-
         i++;
     }
-
     $('#texts').html(letter);
     $('#instruction').html(instruction);
 }
-
 //for decreasment number
 function decreasment(mini) {
     var numbers = parseInt(mini) - 1;
@@ -138,7 +125,6 @@ function decreasment(mini) {
         getGuests($('#number').val());
     }
 }
-
 //for increasment number
 function increasment(max) {
     var num = parseInt(max) + 1;
@@ -147,12 +133,10 @@ function increasment(max) {
         getGuests($('#number').val());
     }
 }
-
-
 // get id of nbGuests put into input box
 function nbGuest(nbGuests) {
-    var personOne = "";
-    personOne += `
+    var guests = "";
+    guests += `
     <div class="input-group mb-3">
     <div class="input-group-prepend">
     <button class="btn btn-primary" type="button" id="minus">&minus;</button>
@@ -164,11 +148,11 @@ function nbGuest(nbGuests) {
     </div>
    
     </div>
-    <h5>Number of people</h5>
-    `
-    $('#incraement').html(personOne);
+    <h5 class="text-center">Number of people</h5>
+    `;
+    $('#incraement').html(guests);
 }
-//fount for loop get new data old data 
+//function for loop get new data old data 
 function getGuests(guests) {
     var oldQuanlity = "";
     var newQuanlity = "";
@@ -184,7 +168,7 @@ function getGuests(guests) {
         <td>${unit[0]}</td>
         <td><img src="${iconUrl}" class="img-fluid" width="100"></td>
     </tr>
-        `
+        `;
     });
     $('#ingredient').html(validQuanlity);
 }
